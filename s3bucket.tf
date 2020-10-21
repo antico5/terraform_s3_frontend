@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "site" {
   bucket        = "${var.s3_bucket_name}"
   acl           = "private"
   force_destroy = true
-  policy = <<EOF
+  policy        = <<EOF
 {
   "Id": "bucket_policy_site",
   "Version": "2012-10-17",
