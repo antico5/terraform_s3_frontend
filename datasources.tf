@@ -1,9 +1,9 @@
 locals {
   # Common tags to attach to resources
   common_tags = {
-    Name        = "${var.s3_bucket_name}"
-    Environment = "${var.s3_bucket_env}"
-    Project     = "${var.project_key}"
+    Name        = var.s3_bucket_name
+    Environment = var.s3_bucket_env
+    Project     = var.project_key
   }
 }
 

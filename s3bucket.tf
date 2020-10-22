@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "site" {
-  bucket        = "${var.s3_bucket_name}"
+  bucket        = var.s3_bucket_name
   acl           = "private"
   force_destroy = true
   policy        = <<EOF
@@ -29,5 +29,5 @@ EOF
     error_document = "404.html"
   }
 
-  tags = "${local.common_tags}"
+  tags = local.common_tags
 }

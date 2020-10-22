@@ -3,9 +3,9 @@ output "s3-bucket-url" {
 }
 
 output "cloudfront" {
-  value = "${aws_cloudfront_distribution.site.domain_name}"
+  value = aws_cloudfront_distribution.site.domain_name
 }
 
 output "distribution-id" {
-  value = "${aws_cloudfront_distribution.site.id}"
+  value = aws_cloudfront_distribution.site.id
 }

@@ -3,11 +3,11 @@ resource "aws_cloudfront_distribution" "site" {
   default_root_object = "index.html"
 
   origin {
-    domain_name = "${aws_s3_bucket.site.bucket_domain_name}"
-    origin_id   = "${var.s3_bucket_name}"
+    domain_name = aws_s3_bucket.site.bucket_domain_name
+    origin_id   = var.s3_bucket_name
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path}"
+      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
     }
   }
 
@@ -28,12 +28,12 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   # Route53 requires Alias/CNAME to be setup
-  # aliases = ["${var.s3_bucket_name}"]
+  # aliases = [var.s3_bucket_name]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${var.s3_bucket_name}"
+    target_origin_id = var.s3_bucket_name
 
     forwarded_values {
       query_string = true
@@ -45,8 +45,8 @@ resource "aws_cloudfront_distribution" "site" {
 
     viewer_protocol_policy = "allow-all"
     min_ttl                = 0
-    default_ttl            = "${var.cache_default_ttl}"
-    max_ttl                = "${var.cache_max_ttl}"
+    default_ttl            = var.cache_default_ttl
+    max_ttl                = var.cache_max_ttl
   }
 
   restrictions {
@@ -56,9 +56,9 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   tags = {
-    Name        = "${var.s3_bucket_name}"
-    Environment = "${var.s3_bucket_env}"
-    Project     = "${var.project_key}"
+    Name        = var.s3_bucket_name
+    Environment = var.s3_bucket_env
+    Project     = var.project_key
   }
 }
 
